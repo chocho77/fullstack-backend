@@ -1,2 +1,4 @@
-package com.codewithchocho.fullstackbackend.exception;public class UserNotFoundAdvice {
+package com.codewithchocho.fullstackbackend.exception;
+
+public class UserNotFoundAdvice {
 }
