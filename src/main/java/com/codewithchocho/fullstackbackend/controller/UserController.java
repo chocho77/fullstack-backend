@@ -15,11 +15,13 @@ public class UserController {
 
     @PostMapping("/user")
     User newUser(@RequestBody User newUser){
+
         return userRepository.save(newUser);
     }
 
     @GetMapping("/users")
     List<User> getAllUsers(){
+
         return userRepository.findAll();
     }
 
@@ -27,5 +29,16 @@ public class UserController {
     User getUserById(@PathVariable Long id){
         return userRepository.findById(id)
                 .orElseThrow(()-> new UserNotFoundException(id));
+    }
+
+    @PutMapping("/user/{id}")
+    User updateUser(@RequestBody User newUser, @PathVariable Long id){
+        return userRepository.findById(id)
+                .map(user -> {
+                    user.setUsername(newUser.setUsername());
+                    user.setName(newUser.getName());
+                    user.setEmail(newUser.getEmail());
+                    return userRepository.save(user);
+                }).orElseThrow(()-> new UserNotFoundException(id));
     }
 }
